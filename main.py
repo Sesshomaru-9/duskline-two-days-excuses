@@ -73,6 +73,19 @@ def main():
               file=sys.stderr)
         return 0
 
+    # Read the file back and confirm it holds exactly the entry we wrote.
+    try:
+        with open(target, "r", encoding="utf-8") as handle:
+            written = handle.read()
+    except OSError as exc:
+        print("duskline-two-days-excuses: cannot read back %s: %s"
+              % (target, exc), file=sys.stderr)
+        return 0
+    if written != ENTRY:
+        print("duskline-two-days-excuses: read-back mismatch in %s" % target,
+              file=sys.stderr)
+        return 0
+
     return 0
 
 
